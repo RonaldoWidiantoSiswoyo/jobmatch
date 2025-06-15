@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - JobMatch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-sm">
+    <h2 class="text-2xl font-bold text-sky-600 mb-6 text-center">Create Account</h2>
+    <input type="email" id="signupEmail" placeholder="Email" class="w-full border p-3 rounded mb-4" />
+    <input type="password" id="signupPassword" placeholder="Password" class="w-full border p-3 rounded mb-4" />
+    <button onclick="signUp()" class="w-full bg-sky-500 hover:bg-sky-600 text-white py-2 rounded"><a href="signup.html">Sign Up</a></button>
+    <p class="text-sm text-center mt-4 text-gray-500">
+      Already have an account? <a href="login.html" class="text-sky-600 font-semibold">Login</a>
+    </p>
+  </div>
+
+  <script>
+    function signUp() {
+      const email = document.getElementById("signupEmail").value.trim();
+      const password = document.getElementById("signupPassword").value;
+
+      if (!email || !password) {
+        alert("Please enter both email and password.");
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+
+      if (users[email]) {
+        alert("Email already registered.");
+        return;
+      }
+
+      users[email] = password;
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("Account created! Please login.");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

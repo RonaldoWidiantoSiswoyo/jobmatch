@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - JobMatch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <!-- Container -->
+  <div class="min-h-screen flex items-center justify-center px-4">
+    <div class="flex flex-col lg:flex-row gap-12 items-center max-w-6xl w-full">
+      
+      <!-- Left Branding -->
+      <div class="flex-1 text-center lg:text-left">
+        <h1 class="text-sky-500 text-5xl font-bold mb-4">JobMatch</h1>
+        <p class="text-gray-700 text-lg leading-relaxed">
+          Connect with top companies and find your dream job through JobMatch.
+        </p>
+      </div>
+
+      <!-- Right Login Card -->
+      <div class="bg-white rounded-lg shadow-md p-8 w-full max-w-sm">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Log In to JobMatch</h2>
+        <input type="email" id="email" placeholder="Email address" class="w-full border border-gray-300 p-3 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-sky-400" />
+        <input type="password" id="password" placeholder="Password" class="w-full border border-gray-300 p-3 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-sky-400" />
+        <button onclick="login()" class="w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 rounded transition duration-300">Log In</button>
+        <p class="text-sm text-center text-gray-500 mt-4">
+          Don't have an account? <a href="signup.html" class="text-sky-600 font-medium hover:underline">Sign up</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function login() {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  const users = JSON.parse(localStorage.getItem("users")) || {};
+
+  if (users[email] === password) {
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("userEmail", email);
+    window.location.href = "index.html";
+  } else {
+    alert("Invalid email or password.");
+  }
+}
+
+  </script>
+</body>
+</html>

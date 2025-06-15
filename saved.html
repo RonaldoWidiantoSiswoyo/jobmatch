@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saved Jobs - JobMatch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-50">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-10 py-6 bg-white shadow">
+    <div class="text-2xl font-bold text-sky-500"><strong>Job</strong>Match</div>
+    <ul class="flex gap-6 text-slate-600 font-medium">
+      <li><a href="index.html" class="hover:text-sky-500">Home</a></li>
+      <li><a href="saved.html" class="text-sky-500 font-bold">Saved Jobs</a></li>
+    </ul>
+  </nav>
+
+  <!-- Title -->
+  <div class="text-center mt-10">
+    <h1 class="text-3xl font-bold text-sky-600">Lowongan yang Telah Disimpan</h1>
+    <p class="text-slate-500 mt-2">Berikut adalah daftar pekerjaan yang telah Anda simpan</p>
+  </div>
+
+  <!-- Saved Job Cards -->
+  <div id="jobList" class="flex flex-wrap justify-center items-start gap-6 mt-10 px-6 pb-20">
+    <!-- Jobs will be injected here from jobs.js -->
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-slate-500 py-6 border-t mt-10 bg-white">
+    © 2025 - JobMatch. All rights reserved.
+  </footer>
+
+  <!-- Script -->
+  <script src="jobs.js"></script>
+</body>
+</html>

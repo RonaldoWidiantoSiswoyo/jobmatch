@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daftar Perusahaan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-slate-700 font-sans">
+  <nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-[1.5rem] bg-white shadow-md">
+    <div class="logo-div">
+      <h1 class="logo text-[25px] text-sky-400">
+        <strong>Job</strong>Match
+      </h1>
+    </div>
+    <div class="menu">
+      <ul class="flex gap-8">
+        <li class="menuList text-slate-500 hover:text-slate-600 cursor-pointer">
+          <a href="index.html">Home</a>
+        </li>
+        <li class="menuList text-slate-500 hover:text-slate-600 cursor-pointer">
+          <a href="company.html">Companies</a>
+        </li>
+        <li class="menuList text-slate-500 hover:text-slate-600 cursor-pointer">
+          <a href="saved.html">Saved Jobs</a>
+        </li>
+        <li class="menuList text-slate-500 hover:text-slate-600 cursor-pointer">
+          <a href="#footer">Contact</a>
+        </li>
+        <li class="menuList text-slate-500 hover:text-slate-600 cursor-pointer">
+          <a href="account.html">Account</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="max-w-4xl mx-auto py-10 px-4 mt-[6rem]">
+    <h1 class="text-3xl font-bold text-center text-sky-600 mb-10">Company List</h1>
+    <div id="companyList" class="space-y-6">
+      <!-- Company cards will be populated here -->
+    </div>
+  </div>
+
+  <script>
+    const companies = [
+      {
+        company: "Tokopedia",
+        location: "Jakarta",
+        image: "tokopedia.png",
+        industry: "E-commerce"
+      },
+      {
+        company: "Bukalapak",
+        location: "Surabaya",
+        image: "bukalapak.jpg",
+        industry: "E-commerce"
+      },
+      {
+        company: "Gojek",
+        location: "Bandung",
+        image: "gojek.png",
+        industry: "Teknologi / Transportasi"
+      },
+      {
+        company: "Traveloka",
+        location: "Yogyakarta",
+        image: "traveloka.png",
+        industry: "Pariwisata & Teknologi"
+      },
+      {
+        company: "Shopee",
+        location: "Surabaya",
+        image: "shopee.png",
+        industry: "E-commerce"
+      },
+      {
+        company: "Lazada",
+        location: "Jakarta",
+        image: "lazada.png",
+        industry: "E-commerce"
+      },
+      {
+        company: "Zalora",
+        location: "Bali",
+        image: "zalora.png",
+        industry: "Fashion / Retail Online"
+      },
+      {
+        company: "Blibli",
+        location: "Medan",
+        image: "blibli.png",
+        industry: "E-commerce / Retail"
+      }
+    ];
+
+    const container = document.getElementById("companyList");
+
+    companies.forEach(c => {
+      const card = document.createElement("div");
+      card.className = "bg-white rounded-lg shadow flex items-center p-5 gap-5";
+
+      card.innerHTML = `
+        <img src="img/${c.image}" alt="${c.company}" class="w-20 h-20 object-cover rounded border" />
+        <div class="flex-1">
+          <h2 class="text-xl font-semibold text-sky-700">${c.company}</h2>
+          <p class="text-sm text-slate-500">${c.location}</p>
+          <p class="text-sm text-slate-600">Industry: ${c.industry}</p>
+        </div>
+        <a href="company.html?name=${encodeURIComponent(c.company)}" class="px-4 py-2 text-sm bg-sky-500 text-white rounded hover:bg-sky-600">View Details</a>
+      `;
+
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>

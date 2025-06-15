@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-slate-700 font-sans">
+
+  <!-- Notification Modal -->
+  <div id="cvModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
+      <h2 class="text-xl font-semibold text-red-600 mb-2">CV Required</h2>
+      <p class="text-sm text-gray-600 mb-4">Please upload your CV on the Account page before applying for a job.</p>
+      <div class="flex justify-center gap-4">
+        <button onclick="document.getElementById('cvModal').classList.add('hidden')" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Close</button>
+        <a href="account.html" class="px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-600">Go to Account</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto bg-white p-8 mt-10 rounded-lg shadow-md">
+    <div id="jobDetail" class="space-y-8">
+      <!-- Job detail content will be loaded here -->
+    </div>
+
+    <div class="mt-10">
+      <a href="index.html" class="text-sky-600 font-semibold hover:underline text-sm">
+        &larr; Back to Home
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const data = [
+      {
+        id: 1,
+        image: "tokopedia.png",
+        title: "Web Developer",
+        time: "Now",
+        location: "Jakarta",
+        desc: `Willing to visit clients if needed based on RFBO (Remote First Before Onsite) escalation.
+Analyze and configure computer network security at the client side.
+Analyze and configure servers, routers, manageable switches, wireless access points, network printers, and other computer network equipment.
+Monitor, troubleshoot, and repair internal company networks.
+Create user guides for clients related to computer networks.
+Prepare detailed work reports to supervisors.
+Strictly follow the company's operational procedures.`,
+        company: "Tokopedia",
+        qualifications: [
+          "Willing to work onsite based on escalation needs",
+          "Skilled in network configuration (switch, router, wireless)",
+          "Experienced in IT infrastructure troubleshooting",
+          "Able to document technical processes clearly"
+        ],
+        type: "Full-time"
+      },
+      {
+        id: 2,
+        image: "bukalapak.jpg",
+        title: "UI/UX Designer",
+        time: "Now",
+        location: "Surabaya",
+        desc: `Create user flows and wireframes based on user needs.
+Design interactive prototypes using tools such as Figma or Adobe XD.
+Conduct usability testing and analyze results.
+Coordinate with frontend and backend development teams.
+Ensure design consistency with the company's visual identity.`,
+        company: "Bukalapak",
+        qualifications: [
+          "Proficient in Figma or Adobe XD",
+          "Experienced in creating prototypes and wireframes",
+          "Understand UI/UX design principles",
+          "Familiar with usability testing"
+        ],
+        type: "Remote"
+      },
+      {
+        id: 3,
+        image: "gojek.png",
+        title: "Data Scientist",
+        time: "Now",
+        location: "Bandung",
+        desc: `Process and analyze big data to generate business insights.
+Develop predictive and classification models using machine learning.
+Create informative data visualizations.
+Collaborate with product teams to understand analytics needs.
+Document analysis results and provide recommendations.`,
+        company: "Gojek",
+        qualifications: [
+          "Experienced with Python/R for analysis",
+          "Able to build predictive models",
+          "Comfortable working with big data",
+          "Experienced with SQL and data visualization"
+        ],
+        type: "Contract"
+      },
+      {
+        id: 4,
+        image: "traveloka.png",
+        title: "Data Analyst",
+        time: "Now",
+        location: "Yogyakarta",
+        desc: `Collect and clean data from various sources.
+Prepare routine and ad-hoc reports using Excel, SQL, and BI tools.
+Provide data-driven insights to support management decision making.
+Build performance dashboards and monitor KPIs.
+Coordinate with other departments regarding data needs.`,
+        company: "Traveloka",
+        qualifications: [
+          "Proficient in Excel, SQL, and BI tools",
+          "Experienced in building KPI dashboards",
+          "Analytical and detail-oriented",
+          "Able to work across departments"
+        ],
+        type: "Full-time"
+      },
+      {
+        id: 5,
+        image: "shopee.png",
+        title: "Software Engineer",
+        time: "Now",
+        location: "Surabaya",
+        desc: `Design, develop, and test web and mobile applications.
+Conduct regular code reviews and fix bugs.
+Work in agile teams and participate in sprints.
+Write technical documentation.
+Implement best practices in security and performance.`,
+        company: "Shopee",
+        qualifications: [
+          "Proficient in JavaScript and Node.js",
+          "Experience with REST APIs and databases",
+          "Familiar with CI/CD principles",
+          "Used to working with Git and agile workflows"
+        ],
+        type: "Remote"
+      },
+      {
+        id: 6,
+        image: "lazada.png",
+        title: "Marketing Manager",
+        time: "Now",
+        location: "Jakarta",
+        desc: `Design and execute digital and offline marketing strategies.
+Manage advertising budgets and performance.
+Analyze campaign data and optimize conversions.
+Establish relationships with media and external partners.
+Lead the marketing team and develop promotional content.`,
+        company: "Lazada",
+        qualifications: [
+          "Experienced in managing digital marketing campaigns",
+          "Creative and analytical in evaluating campaigns",
+          "Capable of leading teams and cross-functional collaboration",
+          "Knowledge of content marketing and SEO"
+        ],
+        type: "Part-time"
+      },
+      {
+        id: 7,
+        image: "zalora.png",
+        title: "Quality Assurance",
+        time: "Now",
+        location: "Bali",
+        desc: `Write and execute manual and automated test cases.
+Report bugs and collaborate with developers.
+Conduct regression and smoke testing before release.
+Ensure product quality meets company standards.
+Participate in early development phases for requirement validation.`,
+        company: "Zalora",
+        qualifications: [
+          "Experience writing manual and automated test cases",
+          "Proficient in documentation and functional testing",
+          "Detail-oriented and can work under pressure",
+          "Familiar with modern QA tools"
+        ],
+        type: "Contract"
+      },
+      {
+        id: 8,
+        image: "blibli.png",
+        title: "Product Manager",
+        time: "Now",
+        location: "Medan",
+        desc: `Manage product lifecycle from planning to launch.
+Conduct market research and idea validation.
+Create roadmaps and product specifications.
+Coordinate with design and engineering teams.
+Measure product success using data and user feedback.`,
+        company: "Blibli",
+        qualifications: [
+          "Experienced in creating product roadmaps",
+          "Able to communicate between technical and business teams",
+          "Analytical and solution-oriented",
+          "Experienced in digital product lifecycle"
+        ],
+        type: "Full-time"
+      }
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    const jobId = parseInt(params.get("id"));
+    const job = data.find(j => j.id === jobId);
+    const container = document.getElementById("jobDetail");
+
+    function checkCVAndApply() {
+      const cv = localStorage.getItem("uploadedCV");
+      if (!cv) {
+        document.getElementById("cvModal").classList.remove("hidden");
+      } else {
+        alert("Thank you for applying! Our team will contact you soon.");
+      }
+    }
+
+    if (job) {
+      container.innerHTML = `
+        <div class="flex items-center gap-5 border-b pb-5">
+          <img src="img/${job.image}" alt="${job.company}" class="w-20 h-20 rounded-md border shadow-sm" />
+          <div>
+            <h1 class="text-3xl font-bold text-sky-700">${job.title}</h1>
+            <p class="text-slate-600 text-sm">${job.company}</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 text-sm">
+          <p><strong>Status:</strong> ${job.type}</p>
+          <p><strong>Location:</strong> ${job.location}</p>
+          <p><strong>Posted:</strong> ${job.time}</p>
+          <p><strong>Field:</strong> Information Technology</p>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold mt-6 mb-2 text-sky-600">Job Description</h2>
+          <div class="whitespace-pre-line text-justify leading-relaxed text-sm">
+            ${job.desc}
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-xl font-semibold mt-6 mb-2 text-sky-600">Qualifications</h2>
+          <ul class="list-disc list-inside text-sm space-y-1">
+            ${(job.qualifications || ["No qualifications available"]).map(q => `<li>${q}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="mt-8">
+          <button
+            class="applyBtn bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg text-sm font-semibold w-full sm:w-auto"
+            onclick="checkCVAndApply()"
+          >
+            Apply Now
+          </button>
+        </div>
+      `;
+    } else {
+      container.innerHTML = `<p class="text-red-500 font-medium">Job not found.</p>`;
+    }
+  </script>
+</body>
+</html>
