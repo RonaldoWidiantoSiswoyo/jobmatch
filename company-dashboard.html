@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Company Dashboard - JobMatch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen text-sm">
+  <nav class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-sky-500">JobMatch - Company Dashboard</h1>
+    <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Logout</button>
+  </nav>
+
+  <main class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded shadow">
+    <h2 class="text-xl font-bold mb-4 text-sky-600">Post a New Job</h2>
+    <form id="jobForm" class="space-y-4">
+      <input type="text" id="title" placeholder="Job Title" class="w-full border p-2 rounded" required />
+      <input type="text" id="location" placeholder="Location" class="w-full border p-2 rounded" required />
+      <select id="type" class="w-full border p-2 rounded" required>
+        <option value="">Select Job Type</option>
+        <option value="Full-time">Full-time</option>
+        <option value="Part-time">Part-time</option>
+        <option value="Remote">Remote</option>
+        <option value="Contract">Contract</option>
+      </select>
+      <textarea id="description" placeholder="Job Description" class="w-full border p-2 rounded" rows="5" required></textarea>
+      <button type="submit" class="bg-sky-500 text-white px-4 py-2 rounded hover:bg-sky-600">Post Job</button>
+    </form>
+
+    <div class="mt-10">
+      <h2 class="text-lg font-semibold mb-4 text-sky-600">Your Posted Jobs</h2>
+      <div id="jobList" class="space-y-4"></div>
+    </div>
+  </main>
+
+  <script>
+    const companyEmail = localStorage.getItem("userEmail") || "";
+
+    document.getElementById("jobForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const title = document.getElementById("title").value.trim();
+      const location = document.getElementById("location").value.trim();
+      const type = document.getElementById("type").value;
+      const description = document.getElementById("description").value.trim();
+
+      const job = {
+        id: Date.now(),
+        title,
+        location,
+        type,
+        description,
+        company: companyEmail,
+      };
+
+      const postedJobs = JSON.parse(localStorage.getItem("companyJobs") || "[]");
+      postedJobs.push(job);
+      localStorage.setItem("companyJobs", JSON.stringify(postedJobs));
+
+      displayJobs();
+      this.reset();
+    });
+
+    function displayJobs() {
+      const jobList = document.getElementById("jobList");
+      jobList.innerHTML = "";
+      const postedJobs = JSON.parse(localStorage.getItem("companyJobs") || "[]").filter(j => j.company === companyEmail);
+
+      if (postedJobs.length === 0) {
+        jobList.innerHTML = `<p class="text-gray-500">No jobs posted yet.</p>`;
+        return;
+      }
+
+      postedJobs.forEach(job => {
+        const jobCard = document.createElement("div");
+        jobCard.className = "border p-4 rounded bg-gray-50";
+        jobCard.innerHTML = `
+          <h3 class="font-semibold text-lg text-sky-700">${job.title}</h3>
+          <p class="text-sm text-gray-600">${job.location} | ${job.type}</p>
+          <p class="mt-2 text-sm">${job.description}</p>
+        `;
+        jobList.appendChild(jobCard);
+      });
+    }
+
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userRole");
+      window.location.href = "login.html";
+    }
+
+    displayJobs();
+  </script>
+</body>
+</html>
