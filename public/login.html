@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login - JobMatch</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 font-sans">
   <!-- Wrapper -->
@@ -67,6 +68,18 @@
     </div>
   </div>
 
+    <!-- Custom Success Toast -->
+  <div id="successToast" class="fixed top-6 right-6 z-50 bg-white border border-green-500 text-green-700 px-6 py-4 rounded-lg shadow-lg hidden transition duration-300 ease-in-out">
+    <div class="flex items-start gap-4">
+      <i class='bx bx-check-circle text-2xl text-green-600'></i>
+      <div>
+        <p class="font-semibold">Account Created</p>
+        <p class="text-sm text-gray-600">You can now log in to your account.</p>
+      </div>
+    </div>
+  </div>
+
+
   <script>
     document.getElementById("signupLink").addEventListener("click", () => {
       document.getElementById("signupModal").classList.remove("hidden");
@@ -98,8 +111,13 @@
 
       users.push({ email, password, role });
       localStorage.setItem("users", JSON.stringify(users));
-      alert("Account created successfully. You can now log in.");
-      document.getElementById("signupModal").classList.add("hidden");
+      // Tampilkan custom toast/modal
+      document.getElementById("successToast").classList.remove("hidden");
+      setTimeout(() => {
+        document.getElementById("successToast").classList.add("hidden");
+        document.getElementById("signupModal").classList.add("hidden");
+      }, 3000);
+
     });
 
     document.getElementById("loginBtn").addEventListener("click", () => {
