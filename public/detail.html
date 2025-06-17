@@ -32,229 +32,502 @@
     </div>
   </div>
 
+    <!-- Success Apply Modal -->
+  <div id="applySuccessModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6 text-center">
+      <h2 class="text-xl font-bold text-green-600 mb-2">Application Sent</h2>
+      <p class="text-gray-600 text-sm mb-4">Thank you for applying! Our team will contact you soon.</p>
+      <button onclick="document.getElementById('applySuccessModal').classList.add('hidden')" class="bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded">
+        Close
+      </button>
+    </div>
+  </div>
+
+
   <script>
-    const data = [
-      {
-        id: 1,
-        image: "tokopedia.png",
-        title: "Web Developer",
-        time: "Now",
-        location: "Jakarta",
-        desc: `Willing to visit clients if needed based on RFBO (Remote First Before Onsite) escalation.
-Analyze and configure computer network security at the client side.
-Analyze and configure servers, routers, manageable switches, wireless access points, network printers, and other computer network equipment.
-Monitor, troubleshoot, and repair internal company networks.
-Create user guides for clients related to computer networks.
-Prepare detailed work reports to supervisors.
-Strictly follow the company's operational procedures.`,
-        company: "Tokopedia",
-        qualifications: [
-          "Willing to work onsite based on escalation needs",
-          "Skilled in network configuration (switch, router, wireless)",
-          "Experienced in IT infrastructure troubleshooting",
-          "Able to document technical processes clearly"
-        ],
-        type: "Full-time"
-      },
-      {
-        id: 2,
-        image: "bukalapak.jpg",
-        title: "UI/UX Designer",
-        time: "Now",
-        location: "Surabaya",
-        desc: `Create user flows and wireframes based on user needs.
-Design interactive prototypes using tools such as Figma or Adobe XD.
-Conduct usability testing and analyze results.
-Coordinate with frontend and backend development teams.
-Ensure design consistency with the company's visual identity.`,
-        company: "Bukalapak",
-        qualifications: [
-          "Proficient in Figma or Adobe XD",
-          "Experienced in creating prototypes and wireframes",
-          "Understand UI/UX design principles",
-          "Familiar with usability testing"
-        ],
-        type: "Remote"
-      },
-      {
-        id: 3,
-        image: "gojek.png",
-        title: "Data Scientist",
-        time: "Now",
-        location: "Bandung",
-        desc: `Process and analyze big data to generate business insights.
-Develop predictive and classification models using machine learning.
-Create informative data visualizations.
-Collaborate with product teams to understand analytics needs.
-Document analysis results and provide recommendations.`,
-        company: "Gojek",
-        qualifications: [
-          "Experienced with Python/R for analysis",
-          "Able to build predictive models",
-          "Comfortable working with big data",
-          "Experienced with SQL and data visualization"
-        ],
-        type: "Contract"
-      },
-      {
-        id: 4,
-        image: "traveloka.png",
-        title: "Data Analyst",
-        time: "Now",
-        location: "Yogyakarta",
-        desc: `Collect and clean data from various sources.
-Prepare routine and ad-hoc reports using Excel, SQL, and BI tools.
-Provide data-driven insights to support management decision making.
-Build performance dashboards and monitor KPIs.
-Coordinate with other departments regarding data needs.`,
-        company: "Traveloka",
-        qualifications: [
-          "Proficient in Excel, SQL, and BI tools",
-          "Experienced in building KPI dashboards",
-          "Analytical and detail-oriented",
-          "Able to work across departments"
-        ],
-        type: "Full-time"
-      },
-      {
-        id: 5,
-        image: "shopee.png",
-        title: "Software Engineer",
-        time: "Now",
-        location: "Surabaya",
-        desc: `Design, develop, and test web and mobile applications.
-Conduct regular code reviews and fix bugs.
-Work in agile teams and participate in sprints.
-Write technical documentation.
-Implement best practices in security and performance.`,
-        company: "Shopee",
-        qualifications: [
-          "Proficient in JavaScript and Node.js",
-          "Experience with REST APIs and databases",
-          "Familiar with CI/CD principles",
-          "Used to working with Git and agile workflows"
-        ],
-        type: "Remote"
-      },
-      {
-        id: 6,
-        image: "lazada.png",
-        title: "Marketing Manager",
-        time: "Now",
-        location: "Jakarta",
-        desc: `Design and execute digital and offline marketing strategies.
-Manage advertising budgets and performance.
-Analyze campaign data and optimize conversions.
-Establish relationships with media and external partners.
-Lead the marketing team and develop promotional content.`,
-        company: "Lazada",
-        qualifications: [
-          "Experienced in managing digital marketing campaigns",
-          "Creative and analytical in evaluating campaigns",
-          "Capable of leading teams and cross-functional collaboration",
-          "Knowledge of content marketing and SEO"
-        ],
-        type: "Part-time"
-      },
-      {
-        id: 7,
-        image: "zalora.png",
-        title: "Quality Assurance",
-        time: "Now",
-        location: "Bali",
-        desc: `Write and execute manual and automated test cases.
-Report bugs and collaborate with developers.
-Conduct regression and smoke testing before release.
-Ensure product quality meets company standards.
-Participate in early development phases for requirement validation.`,
-        company: "Zalora",
-        qualifications: [
-          "Experience writing manual and automated test cases",
-          "Proficient in documentation and functional testing",
-          "Detail-oriented and can work under pressure",
-          "Familiar with modern QA tools"
-        ],
-        type: "Contract"
-      },
-      {
-        id: 8,
-        image: "blibli.png",
-        title: "Product Manager",
-        time: "Now",
-        location: "Medan",
-        desc: `Manage product lifecycle from planning to launch.
-Conduct market research and idea validation.
-Create roadmaps and product specifications.
-Coordinate with design and engineering teams.
-Measure product success using data and user feedback.`,
-        company: "Blibli",
-        qualifications: [
-          "Experienced in creating product roadmaps",
-          "Able to communicate between technical and business teams",
-          "Analytical and solution-oriented",
-          "Experienced in digital product lifecycle"
-        ],
-        type: "Full-time"
-      }
-    ];
+const baseData = [
+  {
+    id: 1,
+    image: "tokopedia.png",
+    title: "Web Developer",
+    time: "Now",
+    location: "Jakarta",
+    company: "Tokopedia",
+    type: "Full-time",
+    desc: `Develop and maintain company web platforms.
+Ensure responsive design across devices and browsers.
+Collaborate with designers and backend developers for UI/UX integration.
+Optimize performance and troubleshoot website issues.
+Write clean, maintainable code following best practices.`,
+    qualifications: [
+      "Proficient in HTML, CSS, JavaScript, and frameworks like React.",
+      "Understanding of REST APIs and asynchronous requests.",
+      "Experience with version control (e.g., Git).",
+      "Attention to detail and problem-solving skills.",
+      "Bachelor’s degree in Computer Science or related field."
+    ]
+  },
+  {
+    id: 2,
+    image: "bukalapak.jpg",
+    title: "UI/UX Designer",
+    time: "Now",
+    location: "Surabaya",
+    company: "Bukalapak",
+    type: "Remote",
+    desc: `Design intuitive interfaces for web and mobile apps.
+Conduct user research and usability tests.
+Create wireframes, mockups, and prototypes.
+Collaborate with developers to implement designs.
+Maintain and evolve the company’s design system.`,
+    qualifications: [
+      "Proficient in design tools like Figma and Adobe XD.",
+      "Understanding of human-centered design principles.",
+      "Strong portfolio of design projects.",
+      "Excellent communication and teamwork skills.",
+      "Experience working in agile environments."
+    ]
+  },
+  {
+    id: 3,
+    image: "gojek.png",
+    title: "Data Scientist",
+    time: "Now",
+    location: "Bandung",
+    company: "Gojek",
+    type: "Contract",
+    desc: `Analyze large datasets to extract insights.
+Develop predictive models using ML algorithms.
+Visualize and report findings to stakeholders.
+Work closely with product and engineering teams.
+Maintain data pipelines and processing systems.`,
+    qualifications: [
+      "Proficient in Python, R, and SQL.",
+      "Experience with machine learning and statistics.",
+      "Strong understanding of data visualization tools.",
+      "Knowledge of big data platforms is a plus.",
+      "Degree in Computer Science, Math, or related field."
+    ]
+  },
+  {
+    id: 4,
+    image: "traveloka.png",
+    title: "Data Analyst",
+    time: "Now",
+    location: "Yogyakarta",
+    company: "Traveloka",
+    type: "Full-time",
+    desc: `Gather and clean data for analysis.
+Develop dashboards and visual reports.
+Identify trends and performance metrics.
+Work with teams to support data-driven decisions.
+Automate regular reporting tasks.`,
+    qualifications: [
+      "Proficient in Excel, SQL, and BI tools (e.g., Tableau).",
+      "Experience in data modeling and analysis.",
+      "Good communication and storytelling with data.",
+      "Strong organizational and multitasking skills.",
+      "Bachelor’s degree in a related field."
+    ]
+  },
+  {
+    id: 5,
+    image: "shopee.png",
+    title: "Software Engineer",
+    time: "Now",
+    location: "Surabaya",
+    company: "Shopee",
+    type: "Remote",
+    desc: `Build scalable backend systems and APIs.
+Develop features for web/mobile applications.
+Fix bugs and ensure security standards.
+Participate in code reviews and testing.
+Work collaboratively in agile teams.`,
+    qualifications: [
+      "Proficient in JavaScript, Node.js, or Python.",
+      "Understanding of RESTful API design.",
+      "Experience with version control systems.",
+      "Familiarity with deployment and CI/CD tools.",
+      "Bachelor’s degree in Software Engineering or similar."
+    ]
+  },
+  {
+    id: 6,
+    image: "lazada.png",
+    title: "Marketing Manager",
+    time: "Now",
+    location: "Jakarta",
+    company: "Lazada",
+    type: "Part-time",
+    desc: `Plan and execute marketing campaigns across platforms.
+Analyze campaign metrics and adjust strategies accordingly.
+Coordinate with creative teams for content and branding.
+Build relationships with media and external partners.
+Manage marketing budget effectively and report performance.`,
+    qualifications: [
+      "Strong experience in digital and traditional marketing.",
+      "Analytical skills and data-driven mindset.",
+      "Excellent leadership and communication abilities.",
+      "Familiarity with marketing tools (Google Ads, Meta).",
+      "Bachelor’s in Marketing or Business preferred."
+    ]
+  },
+  {
+    id: 7,
+    image: "zalora.png",
+    title: "Quality Assurance",
+    time: "Now",
+    location: "Bali",
+    company: "Zalora",
+    type: "Contract",
+    desc: `Write and execute test cases for web/mobile apps.
+Identify bugs and document them clearly.
+Collaborate with developers to resolve issues.
+Conduct regression and performance testing.
+Maintain QA documentation and testing procedures.`,
+    qualifications: [
+      "Experience with manual and automated testing.",
+      "Familiarity with tools like Selenium or Postman.",
+      "Strong attention to detail and analytical thinking.",
+      "Knowledge of SDLC and QA best practices.",
+      "Good communication and reporting skills."
+    ]
+  },
+  {
+    id: 8,
+    image: "blibli.png",
+    title: "Product Manager",
+    time: "Now",
+    location: "Medan",
+    company: "Blibli",
+    type: "Full-time",
+    desc: `Own the product roadmap and feature prioritization.
+Conduct market research and user feedback sessions.
+Collaborate with engineering and design teams.
+Track KPIs and product performance.
+Ensure timely delivery of product milestones.`,
+    qualifications: [
+      "Experience in product lifecycle management.",
+      "Strong analytical and problem-solving abilities.",
+      "Understanding of UX, tech constraints, and market needs.",
+      "Excellent communication and leadership skills.",
+      "Background in Business, Engineering, or related field."
+    ]
+  },
+  {
+    id: 9,
+    image: "telkom.png",
+    title: "Network Engineer",
+    time: "Now",
+    location: "Jakarta",
+    desc: `Design and manage corporate network infrastructure.
+Ensure high availability and network security compliance.
+Handle configurations of routers and firewalls.
+Troubleshoot internal and external connectivity issues.
+Monitor performance and upgrade systems as needed.`,
+    company: "Telkom Indonesia",
+    qualifications: [
+      "Bachelor's in IT or Network Engineering",
+      "Familiarity with Cisco/Juniper routers",
+      "Strong knowledge of TCP/IP, BGP, OSPF",
+      "Experience with network monitoring tools",
+      "Problem-solving and documentation skills"
+    ],
+    type: "Full-time"
+  },{
+    id: 10,
+    image: "pln.png",
+    title: "Electrical Engineer",
+    time: "Now",
+    location: "Semarang",
+    desc: `Maintain power systems and substations.
+Design and improve electrical grid infrastructure.
+Ensure system compliance with safety standards.
+Supervise installation and testing of equipment.
+Analyze load data and perform diagnostics.`,
+    company: "PLN",
+    qualifications: [
+      "Bachelor's in Electrical Engineering",
+      "Knowledge of power generation and distribution",
+      "Experience in SCADA systems",
+      "Excellent troubleshooting skills",
+      "Willing to travel and work on-site"
+    ],
+    type: "Full-time"
+  },{
+    id: 11,
+    image: "pertamina.jpg",
+    title: "Petroleum Engineer",
+    time: "Now",
+    location: "Balikpapan",
+    desc: `Analyze geological data for oil exploration.
+Assist in seismic data interpretation.
+Conduct field mapping and sampling.
+Support drilling operations and risk analysis.
+Create geological models and reports.`,
+    company: "Pertamina",
+    qualifications: [
+      "Degree in Geology or Earth Sciences",
+      "Experience with GIS and geophysical tools",
+      "Willing to travel to remote areas",
+      "Analytical and detail-oriented",
+      "Good teamwork and reporting skills"
+    ],
+    type: "Contract"
+  },
+  {
+    id: 12,
+    image: "bri.png",
+    title: "Data Analyst",
+    time: "Now",
+    location: "Bandung",
+    desc: `Review and evaluate loan applications.
+Analyze financial statements and customer credit history.
+Determine creditworthiness and risk profile.
+Coordinate with loan officers and branch teams.
+Ensure compliance with internal policies.`,
+    company: "Bank BRI",
+    qualifications: [
+      "Degree in Finance, Accounting or related field",
+      "Strong analytical and Excel skills",
+      "Understanding of SME and retail lending",
+      "Detail-oriented and ethical judgment",
+      "Experience in banking is a plus"
+    ],
+    type: "Full-time"
+  },
+  {
+    id: 13,
+    image: "bpjs.png",
+    title: "System Administrator",
+    time: "Now",
+    location: "Yogyakarta",
+    desc: `Evaluate the performance of health programs.
+Analyze population health data and trends.
+Develop recommendations for health improvements.
+Collaborate with healthcare institutions and regulators.
+Prepare analytical reports and policy briefs.`,
+    company: "BPJS Kesehatan",
+    qualifications: [
+      "Bachelor's in Public Health or equivalent",
+      "Strong statistical and analytical skills",
+      "Understanding of Indonesian health systems",
+      "Proficient in Excel/SPSS or similar tools",
+      "Clear communication and reporting abilities"
+    ],
+    type: "Full-time"
+  },
+  {
+    id: 14,
+    image: "astra.png",
+    title: "Manufacturing Supervisor",
+    time: "Now",
+    location: "Karawang",
+    desc: `Coordinate incoming and outgoing shipments.
+Manage inventory and transportation schedules.
+Communicate with suppliers and warehouse teams.
+Optimize delivery performance and logistics cost.
+Ensure compliance with company SOPs.`,
+    company: "Astra International",
+    qualifications: [
+      "Degree in Logistics/Supply Chain Management",
+      "Excellent planning and communication skills",
+      "Familiarity with ERP/warehouse systems",
+      "Problem-solving and process-oriented",
+      "Able to work under pressure"
+    ],
+    type: "Full-time"
+  },
+  {
+    id: 15,
+    image: "indosat.png",
+    title: "DevOps Engineer",
+    time: "Now",
+    location: "Surabaya",
+    desc: `Handle IT incidents and service requests.
+Support end users with hardware and software issues.
+Install and maintain system applications.
+Document technical solutions and maintain logs.
+Escalate complex issues to infrastructure team.`,
+    company: "Indosat Ooredoo",
+    qualifications: [
+      "Diploma or Bachelor’s in Computer Science",
+      "Experience in IT helpdesk or support",
+      "Familiar with Windows and Linux OS",
+      "Customer-focused with communication skills",
+      "Basic networking knowledge"
+    ],
+    type: "Remote"
+  },
+  {
+    id: 16,
+    image: "bppt.jpeg",
+    title: "Research Engineer",
+    time: "Now",
+    location: "Jakarta",
+    desc: `Develop and test innovative technologies.
+Conduct feasibility studies and experiments.
+Collaborate with academic and government partners.
+Draft technical documentation and proposals.
+Present findings in meetings and publications.`,
+    company: "BPPT",
+    qualifications: [
+      "Engineering/Science degree (S1 or S2)",
+      "Research experience preferred",
+      "Ability to write technical reports",
+      "Curiosity and innovation mindset",
+      "Good teamwork and communication"
+    ],
+    type: "Contract"
+  },
+  {
+    id: 17,
+    image: "angkasapura.png",
+    title: "Airport Operations Officer",
+    time: "Now",
+    location: "Makassar",
+    desc: `Oversee terminal operations and passenger flow.
+Monitor compliance with aviation safety rules.
+Assist in coordination of gate and boarding.
+Manage information systems and airport logistics.
+Respond to irregular operations and emergencies.`,
+    company: "Angkasa Pura I",
+    qualifications: [
+      "Degree in Aviation or Airport Management",
+      "Service-oriented and organized",
+      "Good English communication",
+      "Available for shift-based schedules",
+      "Understanding of airport protocols"
+    ],
+    type: "Full-time"
+  },
+  {
+    id: 18,
+    image: "kominfo.png",
+    title: "Cybersecurity Specialist",
+    time: "Now",
+    location: "Jakarta",
+    desc: `Research digital and communication policies.
+Draft national ICT development strategies.
+Engage with stakeholders and conduct surveys.
+Monitor implementation and regulatory trends.
+Report on outcomes and recommend adjustments.`,
+    company: "Kementerian Kominfo",
+    qualifications: [
+      "Bachelor's in Public Policy or IT",
+      "Interest in digital economy governance",
+      "Excellent writing and analysis skills",
+      "Ability to work with stakeholders",
+      "Experience in government projects is a plus"
+    ],
+    type: "Full-time"
+  },
+  {
+    id: 19,
+    image: "bumn.png",
+    title: "HR Generalist",
+    time: "Now",
+    location: "IKN",
+    desc: `Review and draft corporate legal documents.
+Handle internal compliance and litigation matters.
+Assist with licensing and regulatory filings.
+Advise management on legal risks.
+Coordinate with external legal counsel.`,
+    company: "BUMN Holding",
+    qualifications: [
+      "Bachelor of Law (S.H.) with Advocate license",
+      "Understanding of corporate and contract law",
+      "Strong written and verbal communication",
+      "Attention to legal detail and ethics",
+      "Experience in BUMN or law firms preferred"
+    ],
+    type: "Part-time"
+  },
+  {
+    id: 20,
+    image: "pegadaian.png",
+    title: "Finance Officer",
+    time: "Now",
+    location: "Medan",
+    desc: `Provide loan and pawn services to customers.
+Promote financial products and explain benefits.
+Process applications and verify customer identity.
+Ensure accurate documentation and records.
+Handle customer inquiries and feedback.`,
+    company: "Pegadaian",
+    qualifications: [
+      "Diploma or Bachelor's in any major",
+      "Good communication and sales skills",
+      "Basic understanding of finance products",
+      "Customer service experience preferred",
+      "Honest and detail-oriented"
+    ],
+    type: "Full-time"
+  }
+];
 
-    const params = new URLSearchParams(window.location.search);
-    const jobId = parseInt(params.get("id"));
-    const job = data.find(j => j.id === jobId);
-    const container = document.getElementById("jobDetail");
 
-    function checkCVAndApply() {
-      const cv = localStorage.getItem("uploadedCV");
-      if (!cv) {
-        document.getElementById("cvModal").classList.remove("hidden");
-      } else {
-        alert("Thank you for applying! Our team will contact you soon.");
-      }
-    }
+const postedJobs = JSON.parse(localStorage.getItem("jobPosts") || "[]");
+  const data = [...baseData, ...postedJobs];
 
-    if (job) {
-      container.innerHTML = `
-        <div class="flex items-center gap-5 border-b pb-5">
-          <img src="img/${job.image}" alt="${job.company}" class="w-20 h-20 rounded-md border shadow-sm" />
-          <div>
-            <h1 class="text-3xl font-bold text-sky-700">${job.title}</h1>
-            <p class="text-slate-600 text-sm">${job.company}</p>
-          </div>
-        </div>
+  const params = new URLSearchParams(window.location.search);
+  const jobId = parseInt(params.get("id"));
+  const job = data.find(j => j.id === jobId);
+  const container = document.getElementById("jobDetail");
 
-        <div class="grid grid-cols-2 gap-4 text-sm">
-          <p><strong>Status:</strong> ${job.type}</p>
-          <p><strong>Location:</strong> ${job.location}</p>
-          <p><strong>Posted:</strong> ${job.time}</p>
-          <p><strong>Field:</strong> Information Technology</p>
-        </div>
-
-        <div>
-          <h2 class="text-xl font-semibold mt-6 mb-2 text-sky-600">Job Description</h2>
-          <div class="whitespace-pre-line text-justify leading-relaxed text-sm">
-            ${job.desc}
-          </div>
-        </div>
-
-        <div>
-          <h2 class="text-xl font-semibold mt-6 mb-2 text-sky-600">Qualifications</h2>
-          <ul class="list-disc list-inside text-sm space-y-1">
-            ${(job.qualifications || ["No qualifications available"]).map(q => `<li>${q}</li>`).join('')}
-          </ul>
-        </div>
-
-        <div class="mt-8">
-          <button
-            class="applyBtn bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg text-sm font-semibold w-full sm:w-auto"
-            onclick="checkCVAndApply()"
-          >
-            Apply Now
-          </button>
-        </div>
-      `;
+  function checkCVAndApply() {
+    const cv = localStorage.getItem("uploadedCV");
+    if (!cv) {
+      document.getElementById("cvModal").classList.remove("hidden");
     } else {
-      container.innerHTML = `<p class="text-red-500 font-medium">Job not found.</p>`;
+      document.getElementById("applySuccessModal").classList.remove("hidden");
     }
+  }
+
+  if (job) {
+    const imgSrc = job.image.startsWith("data:") ? job.image : `img/${job.image}`;
+    container.innerHTML = `
+      <div class="flex items-center gap-5 border-b pb-5">
+        <img src="${imgSrc}" alt="${job.company}" class="w-20 h-20 rounded-md border shadow-sm" />
+        <div>
+          <h1 class="text-3xl font-bold text-sky-700">${job.title}</h1>
+          <p class="text-slate-600 text-sm">${job.company}</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 text-sm">
+        <p><strong>Status:</strong> ${job.type}</p>
+        <p><strong>Location:</strong> ${job.location}</p>
+        <p><strong>Posted:</strong> ${job.time}</p>
+        <p><strong>Field:</strong> Information Technology</p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold mt-6 mb-2 text-sky-600">Job Description</h2>
+        <div class="whitespace-pre-line text-justify leading-relaxed text-sm">
+          ${job.desc}
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-semibold mt-6 mb-2 text-sky-600">Qualifications</h2>
+        <ul class="list-disc list-inside text-sm space-y-1">
+          ${(job.qualifications || ["No qualifications available"]).map(q => `<li>${q}</li>`).join('')}
+        </ul>
+      </div>
+
+      <div class="mt-8">
+        <button
+          class="applyBtn bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg text-sm font-semibold w-full sm:w-auto"
+          onclick="checkCVAndApply()"
+        >
+          Apply Now
+        </button>
+      </div>
+    `;
+  } else {
+    container.innerHTML = `<p class="text-red-500 font-medium">Job not found.</p>`;
+  }
   </script>
 </body>
 </html>

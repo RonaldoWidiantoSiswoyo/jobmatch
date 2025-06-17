@@ -2,96 +2,177 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Company Dashboard - JobMatch</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans min-h-screen text-sm">
-  <nav class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
-    <h1 class="text-2xl font-bold text-sky-500">JobMatch - Company Dashboard</h1>
-    <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Logout</button>
-  </nav>
+<body class="bg-gray-100 font-sans">
 
-  <main class="max-w-4xl mx-auto mt-8 p-6 bg-white rounded shadow">
-    <h2 class="text-xl font-bold mb-4 text-sky-600">Post a New Job</h2>
-    <form id="jobForm" class="space-y-4">
-      <input type="text" id="title" placeholder="Job Title" class="w-full border p-2 rounded" required />
-      <input type="text" id="location" placeholder="Location" class="w-full border p-2 rounded" required />
-      <select id="type" class="w-full border p-2 rounded" required>
-        <option value="">Select Job Type</option>
+  <!-- Navbar with Logout -->
+  <div class="bg-white shadow-md py-4 px-8 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-sky-600">Company Dashboard</h1>
+    <button onclick="logout()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+      Logout
+    </button>
+  </div>
+
+  <!-- Post Job Form -->
+  <div class="max-w-4xl mx-auto mt-10 bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold text-sky-600 mb-6">Post a New Job</h2>
+
+    <form id="jobForm" class="space-y-4" enctype="multipart/form-data">
+      <input type="file" id="imageFile" accept="image/*" class="w-full border rounded p-3 bg-white" required />
+      <input type="text" id="title" placeholder="Job Title" class="w-full border rounded p-3" required />
+      <input type="text" id="location" placeholder="Location" class="w-full border rounded p-3" required />
+      <input type="text" id="company" placeholder="Company Name" class="w-full border rounded p-3" required />
+      <select id="type" class="w-full border p-3 rounded" required>
+        <option value="">Select Type</option>
         <option value="Full-time">Full-time</option>
-        <option value="Part-time">Part-time</option>
         <option value="Remote">Remote</option>
         <option value="Contract">Contract</option>
+        <option value="Part-time">Part-time</option>
       </select>
-      <textarea id="description" placeholder="Job Description" class="w-full border p-2 rounded" rows="5" required></textarea>
-      <button type="submit" class="bg-sky-500 text-white px-4 py-2 rounded hover:bg-sky-600">Post Job</button>
+      <textarea id="desc" placeholder="Job Description" class="w-full border rounded p-3" rows="6" required></textarea>
+      <textarea id="qualifications" placeholder="Qualifications (separate with semicolon ;)" class="w-full border rounded p-3" rows="4" required></textarea>
+    
+      <button type="submit" class="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded">Post Job</button>
     </form>
 
-    <div class="mt-10">
-      <h2 class="text-lg font-semibold mb-4 text-sky-600">Your Posted Jobs</h2>
-      <div id="jobList" class="space-y-4"></div>
-    </div>
-  </main>
+    <div id="successMsg" class="hidden text-green-600 mt-4 font-medium">Job posted successfully!</div>
+  </div>
+
+  <!-- Posted Jobs Section -->
+  <div class="max-w-4xl mx-auto mt-10 bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-xl font-bold text-sky-600 mb-4">Your Posted Jobs</h2>
+    <div id="postedJobsContainer" class="space-y-4"></div>
+  </div>
 
   <script>
-    const companyEmail = localStorage.getItem("userEmail") || "";
-
-    document.getElementById("jobForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const title = document.getElementById("title").value.trim();
-      const location = document.getElementById("location").value.trim();
-      const type = document.getElementById("type").value;
-      const description = document.getElementById("description").value.trim();
-
-      const job = {
-        id: Date.now(),
-        title,
-        location,
-        type,
-        description,
-        company: companyEmail,
-      };
-
-      const postedJobs = JSON.parse(localStorage.getItem("companyJobs") || "[]");
-      postedJobs.push(job);
-      localStorage.setItem("companyJobs", JSON.stringify(postedJobs));
-
-      displayJobs();
-      this.reset();
-    });
-
-    function displayJobs() {
-      const jobList = document.getElementById("jobList");
-      jobList.innerHTML = "";
-      const postedJobs = JSON.parse(localStorage.getItem("companyJobs") || "[]").filter(j => j.company === companyEmail);
-
-      if (postedJobs.length === 0) {
-        jobList.innerHTML = `<p class="text-gray-500">No jobs posted yet.</p>`;
-        return;
-      }
-
-      postedJobs.forEach(job => {
-        const jobCard = document.createElement("div");
-        jobCard.className = "border p-4 rounded bg-gray-50";
-        jobCard.innerHTML = `
-          <h3 class="font-semibold text-lg text-sky-700">${job.title}</h3>
-          <p class="text-sm text-gray-600">${job.location} | ${job.type}</p>
-          <p class="mt-2 text-sm">${job.description}</p>
-        `;
-        jobList.appendChild(jobCard);
-      });
-    }
-
-    function logout() {
-      localStorage.removeItem("isLoggedIn");
-      localStorage.removeItem("userEmail");
-      localStorage.removeItem("userRole");
+    const userRole = localStorage.getItem("userRole");
+    if (!localStorage.getItem("isLoggedIn") || userRole !== "company") {
       window.location.href = "login.html";
     }
+  
+    let editingJobId = null;
+  
+    function logout() {
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userRole');
+      window.location.href = 'login.html';
+    }
+  
+    document.getElementById('jobForm').addEventListener('submit', function(e) {
+  e.preventDefault();
 
-    displayJobs();
+  const fileInput = document.getElementById('imageFile');
+  const file = fileInput.files[0];
+
+  const jobs = JSON.parse(localStorage.getItem('jobPosts') || '[]');
+
+  const handleJobSave = (imageDataUrl) => {
+    const job = {
+      id: editingJobId || Date.now(),
+      image: imageDataUrl,
+      title: document.getElementById('title').value.trim(),
+      location: document.getElementById('location').value.trim(),
+      company: document.getElementById('company').value.trim(),
+      type: document.getElementById('type').value,
+      time: "Now",
+      desc: document.getElementById('desc').value.trim(),
+      qualifications: document.getElementById('qualifications').value.split(';').map(q => q.trim())
+    };
+
+    if (editingJobId) {
+      const index = jobs.findIndex(j => j.id === editingJobId);
+      if (index !== -1) jobs[index] = job;
+      editingJobId = null;
+    } else {
+      jobs.push(job);
+    }
+
+    localStorage.setItem('jobPosts', JSON.stringify(jobs));
+    document.getElementById('jobForm').reset();
+    document.getElementById('successMsg').classList.remove('hidden');
+    document.querySelector('button[type="submit"]').textContent = "Post Job";
+    displayPostedJobs();
+  };
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      handleJobSave(event.target.result);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    const existing = jobs.find(j => j.id === editingJobId);
+    handleJobSave(existing?.image || '');
+  }
+});
+
+
+    function displayPostedJobs() {
+      const container = document.getElementById('postedJobsContainer');
+      container.innerHTML = '';
+      const jobs = JSON.parse(localStorage.getItem('jobPosts') || '[]');
+  
+      if (jobs.length === 0) {
+        container.innerHTML = '<p class="text-gray-500">No jobs posted yet.</p>';
+        return;
+      }
+  
+      jobs.forEach(job => {
+        const div = document.createElement('div');
+        div.className = "border p-4 rounded shadow-sm bg-gray-50";
+  
+        div.innerHTML = `
+          <div class="flex gap-4 items-start">
+            <img src="${job.image}" alt="${job.title}" class="w-16 h-16 object-cover rounded"/>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-sky-700">${job.title}</h3>
+              <p class="text-sm text-gray-600">${job.company} - ${job.location}</p>
+              <p class="text-sm text-gray-500">Type: ${job.type} | Posted: ${job.time}</p>
+              <p class="text-sm mt-2">${job.desc.slice(0, 100)}...</p>
+            </div>
+            <div class="flex flex-col gap-2">
+              <button onclick="editJob(${job.id})" class="bg-yellow-400 text-white px-3 py-1 rounded text-sm hover:bg-yellow-500">Edit</button>
+              <button onclick="deleteJob(${job.id})" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">Delete</button>
+            </div>
+          </div>
+        `;
+  
+        container.appendChild(div);
+      });
+    }
+  
+    function deleteJob(jobId) {
+      if (!confirm("Are you sure you want to delete this job?")) return;
+      const jobs = JSON.parse(localStorage.getItem('jobPosts') || '[]');
+      const updatedJobs = jobs.filter(job => job.id !== jobId);
+      localStorage.setItem('jobPosts', JSON.stringify(updatedJobs));
+      displayPostedJobs();
+    }
+  
+    function editJob(jobId) {
+      const jobs = JSON.parse(localStorage.getItem('jobPosts') || '[]');
+      const job = jobs.find(j => j.id === jobId);
+      if (!job) return;
+  
+      editingJobId = jobId;
+  
+      document.getElementById('title').value = job.title;
+      document.getElementById('location').value = job.location;
+      document.getElementById('company').value = job.company;
+      document.getElementById('type').value = job.type;
+      document.getElementById('desc').value = job.desc;
+      document.getElementById('qualifications').value = job.qualifications.join("; ");
+      document.querySelector('button[type="submit"]').textContent = "Update Job";
+  
+      document.getElementById('successMsg').classList.add('hidden');
+    }
+  
+    // Initial load
+    displayPostedJobs();
   </script>
 </body>
 </html>

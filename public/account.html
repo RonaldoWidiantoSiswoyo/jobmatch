@@ -9,6 +9,7 @@
 </head>
 <body class="bg-gray-100 font-sans min-h-screen flex flex-col text-sm md:text-base">
 
+
   <!-- Notification Card -->
   <div id="cvPopup" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-white max-w-sm w-[90%] rounded-lg shadow-lg p-6 text-center">
@@ -144,8 +145,9 @@
     function deleteCV() {
       localStorage.removeItem('uploadedCV');
       document.getElementById('cvFileName').textContent = 'Not uploaded';
-      alert('CV has been deleted.');
+      showCVToast("CV Deleted", "Your uploaded CV has been removed.");
     }
+
 
     function logout() {
       localStorage.removeItem("isLoggedIn");
@@ -173,7 +175,19 @@
         document.getElementById('phone').textContent = phone;
         document.getElementById('bio').textContent = bio;
       }
+      function showCVToast(title, message) {
+        const toast = document.getElementById("cvToast");
+        toast.querySelector("p.font-semibold").textContent = title;
+        toast.querySelector("p.text-sm").textContent = message;
+        toast.classList.remove("hidden");
+
+        setTimeout(() => {
+          toast.classList.add("hidden");
+        }, 3000);
+      }
+
     }
   </script>
+
 </body>
 </html>

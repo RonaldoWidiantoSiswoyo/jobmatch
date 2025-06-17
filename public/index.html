@@ -12,6 +12,12 @@
     />
   </head>
   <body>
+    <!-- Toast Notification -->
+<div id="toast" class="fixed bottom-6 right-6 z-50 bg-white border border-sky-500 text-sky-700 px-4 py-3 rounded-lg shadow-lg hidden transition duration-300 ease-in-out">
+  <p class="font-semibold">Job Saved!</p>
+  <p class="text-sm text-slate-600">Check your Saved Jobs page.</p>
+</div>
+
     <!-- main container -->
     <div class="w-[85%] m-auto bg-white">
       <!-- navbar start -->
@@ -138,91 +144,90 @@
         <h1
           class="text-slate-700 text-[23px] py-[2rem] pb-3rem font-bold w-[400px block]"
         >
-          Ayo cari kerja dan <br />
-          berhentilah menganggur!
+        Let's Get a Job and <br />
+        Stop being Unemployed!
         </h1>
 
-        <div class="overflow-hidden w-full mt-10">
-          <div id="tipsCarousel" class="flex transition-transform duration-700 ease-in-out w-max">
-            
+       
+            <div class="overflow-hidden w-full mt-10">
+              <div id="tipsCarousel" class="flex w-max transition-all duration-700 ease-in-out"> 
             <!-- Card 1 -->
             <div class="w-[450px] shrink-0 p-4">
               <div class="bg-white p-5 rounded-[10px] shadow-md border">
                 <div class="flex items-center gap-3 mb-3">
-                  <img src="img/new-hire.png" alt="Tips 1" class="w-[15%]" />
-                  <h2 class="font-semibold text-sky-600 text-base">Latihan Wawancara</h2>
+                  <img src="img/new-hire.png" alt="Tip 1" class="w-[15%]" />
+                  <h2 class="font-semibold text-sky-600 text-base">Interview Practice</h2>
                 </div>
                 <p class="text-slate-600 text-sm">
-                  Latih diri menjawab pertanyaan seperti “Ceritakan tentang diri Anda”.
+                  Practice answering questions like “Tell me about yourself.”
                 </p>
               </div>
             </div>
-        
+
             <!-- Card 2 -->
             <div class="w-[450px] shrink-0 p-4">
               <div class="bg-white p-5 rounded-[10px] shadow-md border">
                 <div class="flex items-center gap-3 mb-3">
-                  <img src="img/onboarding.png" alt="Tips 2" class="w-[15%]" />
-                  <h2 class="font-semibold text-sky-600 text-base">Resume Menarik</h2>
+                  <img src="img/onboarding.png" alt="Tip 2" class="w-[15%]" />
+                  <h2 class="font-semibold text-sky-600 text-base">Impressive Resume</h2>
                 </div>
                 <p class="text-slate-600 text-sm">
-                  Gunakan format ringkas, tonjolkan pencapaian yang sesuai dengan posisi.
+                  Use a concise format and highlight achievements relevant to the position.
                 </p>
               </div>
             </div>
-        
+
             <!-- Card 3 -->
             <div class="w-[450px] shrink-0 p-4">
               <div class="bg-white p-5 rounded-[10px] shadow-md border">
                 <div class="flex items-center gap-3 mb-3">
-                  <img src="img/start-date.png" alt="Tips 3" class="w-[15%]" />
-                  <h2 class="font-semibold text-sky-600 text-base">Penampilan Rapi</h2>
+                  <img src="img/start-date.png" alt="Tip 3" class="w-[15%]" />
+                  <h2 class="font-semibold text-sky-600 text-base">Neat Appearance</h2>
                 </div>
                 <p class="text-slate-600 text-sm">
-                  Kenakan pakaian profesional, hindari pakaian terlalu santai saat wawancara.
+                  Dress professionally and avoid overly casual clothes during the interview.
                 </p>
               </div>
             </div>
-        
+
             <!-- Card 4 -->
             <div class="w-[450px] shrink-0 p-4">
               <div class="bg-white p-5 rounded-[10px] shadow-md border">
                 <div class="flex items-center gap-3 mb-3">
-                  <img src="img/new-hire.png" alt="Tips 4" class="w-[15%]" />
-                  <h2 class="font-semibold text-sky-600 text-base">Riset Perusahaan</h2>
+                  <img src="img/new-hire.png" alt="Tip 4" class="w-[15%]" />
+                  <h2 class="font-semibold text-sky-600 text-base">Company Research</h2>
                 </div>
                 <p class="text-slate-600 text-sm">
-                  Pelajari profil perusahaan dan siapkan pertanyaan yang relevan.
+                  Learn about the company profile and prepare relevant questions.
                 </p>
               </div>
             </div>
-        
+
             <!-- Card 5 -->
             <div class="w-[450px] shrink-0 p-4">
               <div class="bg-white p-5 rounded-[10px] shadow-md border">
                 <div class="flex items-center gap-3 mb-3">
-                  <img src="img/onboarding.png" alt="Tips 5" class="w-[15%]" />
-                  <h2 class="font-semibold text-sky-600 text-base">Pertanyaan Balik</h2>
+                  <img src="img/onboarding.png" alt="Tip 5" class="w-[15%]" />
+                  <h2 class="font-semibold text-sky-600 text-base">Ask Back Questions</h2>
                 </div>
                 <p class="text-slate-600 text-sm">
-                  Tanyakan tentang tim, ekspektasi, atau tools yang digunakan di posisi tersebut.
+                  Ask about the team, expectations, or tools used in the role.
                 </p>
               </div>
             </div>
-        
+
             <!-- Card 6 -->
             <div class="w-[450px] shrink-0 p-4">
               <div class="bg-white p-5 rounded-[10px] shadow-md border">
                 <div class="flex items-center gap-3 mb-3">
-                  <img src="img/start-date.png" alt="Tips 6" class="w-[15%]" />
+                  <img src="img/start-date.png" alt="Tip 6" class="w-[15%]" />
                   <h2 class="font-semibold text-sky-600 text-base">Follow Up</h2>
                 </div>
                 <p class="text-slate-600 text-sm">
-                  Kirim email terima kasih dalam 24 jam untuk menunjukkan antusiasme dan etika.
+                  Send a thank-you email within 24 hours to show enthusiasm and professionalism.
                 </p>
               </div>
             </div>
-        
           </div>
         </div>
         
@@ -231,9 +236,9 @@
         >
           <div>
             <h1 class="text-2xl font-bold text-sky-500">
-              Siap untuk berhenti menganggur?
+              Ready to stop being unemployed?
             </h1>
-            <span class="font-bold text-black text-xl">Ayo mulai kerja!</span>
+            <span class="font-bold text-black text-xl">Let's get to work!</span>
           </div>
 
           <button
@@ -249,7 +254,7 @@
     id="footer">
       <div>
         <h1 class="font-bold text-xl mb-[1rem]">Job Match</h1>
-        <p>Website ini dibuat untuk memudahkan mencari kerja</p>
+        <p>Find your dream job and connect with companies quickly and easily.</p>
         <!-- <p><strong>tailwindcss & JavaScript</strong></p> -->
       </div>
 
@@ -303,3 +308,22 @@
     window.location.href = "login.html";
   }
 </script>
+
+<style>
+  #tipsCarouselWrapper {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  #tipsCarousel {
+    display: flex;
+    flex-wrap: nowrap;
+    scroll-behavior: smooth;
+  }
+
+  #tipsCarousel > div {
+    flex-shrink: 0;
+    width: 450px;
+    padding: 1rem;
+  }
+</style>
